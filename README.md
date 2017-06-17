@@ -25,10 +25,10 @@ $ source ./environment.sh
 ```
 
 5. Start the watch for 'FireTweetEvent'.
-...This can be deployed to a server.All the parameters are picked from environmental variables.
 ```
 $ node watcher.js
 ```
+   This can be deployed to a server.All the parameters are picked from environmental variables.
 
 6. Invoke Smart contract method
 ```
