@@ -10,7 +10,7 @@ var client = new Twitter({
 });
 
 
-web3.setProvider(new Web3.providers.HttpProvider('http://localhost:8545'))
+web3.setProvider(new Web3.providers.HttpProvider(process.env.HTTP_RPC_PROVIDER))
 web3.eth.defaultAccount = web3.eth.coinbase;
 
 var abi = [{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}];
