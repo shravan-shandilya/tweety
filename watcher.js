@@ -17,7 +17,7 @@ try{
   return;
 }
 
-var abi = [{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}];
+var abi = [{"constant":true,"inputs":[{"name":"index","type":"uint8"}],"name":"GetTweet","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}];
 var tweetybirdContract = web3.eth.contract(abi);
 contract = tweetybirdContract.at(process.env.CONTRACT_ADDRESS);
 

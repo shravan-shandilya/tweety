@@ -14,8 +14,7 @@ w3 = Web3(RPCProvider(host=rpc.split(":")[0],port=rpc.split(":")[1]))
 
 
 #TODO:This should be stored in a seperate file for a large contract(which can be updated everytime the contract gets changed)
-abi = '[{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}]'
-
+abi = '''[{"constant":true,"inputs":[{"name":"index","type":"uint8"}],"name":"GetTweet","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}]'''
 contract_factory = w3.eth.contract(abi=json.loads(abi))
 contract = contract_factory(json.loads(abi),address=contract_address)
 

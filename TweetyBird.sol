@@ -1,13 +1,24 @@
 pragma solidity ^0.4.0;
 contract TweetyBird {
-    mapping (address => string) tweets;
+    string[] tweets;
     event FireTweetEvent(string cool_string);
-    function SendTweet(string c) returns (bool){
-        if(bytes(c).length <= 140){
-            tweets[msg.sender] = c;
+
+    modifier rejectValuedTxn{
+        if(msg.value > 0)
+            throw;
+        _; //Replaced with the original function to be modified
+    }
+    function SendTweet(string c) rejectValuedTxn {
+        if(bytes(c).length <= 160){
+            tweets.push(c);
             FireTweetEvent(c);
-            return true;
         }
-        return false;
+    }
+    function GetTweet(uint8 index) constant returns (string){
+        if((index >= 0) && (index < tweets.length)){
+            return tweets[index];
+        }else{
+            return "Invalid Index!";
+        }
     }
 }
