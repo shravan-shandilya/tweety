@@ -12,9 +12,6 @@ rpc = sys.argv[2]
 contract_address = sys.argv[3]
 w3 = Web3(RPCProvider(host=rpc.split(":")[0],port=rpc.split(":")[1]))
 
-print message
-print rpc
-print contract_address
 
 #TODO:This should be stored in a seperate file for a large contract(which can be updated everytime the contract gets changed)
 abi = '[{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}]'
@@ -22,4 +19,4 @@ abi = '[{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTw
 contract_factory = w3.eth.contract(abi=json.loads(abi))
 contract = contract_factory(json.loads(abi),address=contract_address)
 
-print contract.transact().SendTweet(message)
+print "Txn. Reciept:",contract.transact().SendTweet(message)
