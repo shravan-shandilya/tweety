@@ -1,0 +1,23 @@
+{
+  "name": "tweety",
+  "version": "1.0.0",
+  "description": "Tweets data sent to ethereum smart contract",
+  "main": "watcher.js",
+  "scripts": {
+    "test": "node watcher.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shravan-shandilya/tweety.git"
+  },
+  "author": "Shravan Shandilya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shravan-shandilya/tweety/issues"
+  },
+  "homepage": "https://github.com/shravan-shandilya/tweety#readme",
+  "dependencies": {
+    "twitter": "^1.7.1",
+    "web3": "^0.19.0"
+  }
+}
