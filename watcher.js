@@ -9,31 +9,24 @@ var client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-
-web3.setProvider(new Web3.providers.HttpProvider(process.env.HTTP_RPC_PROVIDER))
-web3.eth.defaultAccount = web3.eth.coinbase;
+try{
+  web3.setProvider(new Web3.providers.HttpProvider(process.env.HTTP_RPC_PROVIDER));
+  web3.eth.defaultAccount = web3.eth.coinbase;
+}catch(err){
+  console.log("Connection to RPC Provider failed!");
+  return;
+}
 
 var abi = [{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}];
 var tweetybirdContract = web3.eth.contract(abi);
 contract = tweetybirdContract.at(process.env.CONTRACT_ADDRESS);
 
-function hex2a(hexx) {
-    var hex = hexx.toString();
-    var str = '';
-    for (var i = 0; i < hex.length; i += 2)
-        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
-}
-
 var filter = web3.eth.filter({event:'FireTweetEvent',fromBlock:'latest'});
 filter.watch(function(err,res){
   console.log("fired");
-  client.post('statuses/update', {status: hex2a(res.data)},  function(error, tweet, response) {
+  client.post('statuses/update', {status: web3.toAscii(res.data)},  function(error, tweet, response) {
       if(error){
         console.log(error);
-        throw error;
       }
-      console.log(tweet);
-      //console.log(response);
   });
 });
