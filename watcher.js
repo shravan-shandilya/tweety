@@ -29,8 +29,11 @@ var filter = web3.eth.filter({event:'FireTweetEvent',fromBlock:'latest'});
 filter.watch(function(err,res){
   console.log("fired");
   client.post('statuses/update', {status: hex2a(res.data)},  function(error, tweet, response) {
-      if(error) throw error;
+      if(error){
+        console.log(error);
+        throw error;
+      }
       console.log(tweet);
-      console.log(response);
+      //console.log(response);
   });
 });
