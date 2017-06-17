@@ -1,0 +1,25 @@
+#!/usr/bin/python
+import json,sys
+from web3 import Web3,RPCProvider
+
+if len(sys.argv) < 4 :
+    print "Didnt recieve required parameters!:"
+    print "Usage: tweeth <message> <rpc> <contract_address>"
+    exit(-1)
+
+message =sys.argv[1]
+rpc = sys.argv[2]
+contract_address = sys.argv[3]
+w3 = Web3(RPCProvider(host=rpc.split(":")[0],port=rpc.split(":")[1]))
+
+print message
+print rpc
+print contract_address
+
+#TODO:This should be stored in a seperate file for a large contract(which can be updated everytime the contract gets changed)
+abi = '[{"constant":false,"inputs":[{"name":"c","type":"string"}],"name":"SendTweet","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"cool_string","type":"string"}],"name":"FireTweetEvent","type":"event"}]'
+
+contract_factory = w3.eth.contract(abi=json.loads(abi))
+contract = contract_factory(json.loads(abi),address=contract_address)
+
+print contract.transact().SendTweet(message)
